@@ -3,12 +3,27 @@ kind: Task
 metadata:
   name: task1
 spec:
+  params:
+    - name: echo1
+      description: echo property 1
+    - name: echo2
+      description: echo property 2
   steps:
     - name: task-one-step-one
       image: centos
+      env:
+        - name: ECHO1
+          value: $(inputs.params.echo1)
+        - name: ECHO2
+          value: $(inputs.params.echo2)
       command: ["bash", "-c"]
       args:
-        - echo "=======================";
+        - |
+          #!/usr/bin/env bash
+          echo "=======================";
+          echo "echo1: ${ECHO1}";
+          echo "echo2: ${ECHO2}";
+          echo "=======================";
           echo "IBM Cloud - Status";
           echo "Using https://github.com/idsb3t1/KEEP-pipeline-tests-resources.git";
           echo "Endpoint - https://cloud.ibm.com";
