@@ -3,6 +3,11 @@ kind: TriggerTemplate
 metadata:
   name: pipeline-template
 spec:
+  params:
+    - name: echo1
+      description: echo property 1
+    - name: echo2
+      description: echo property 2
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -14,6 +19,11 @@ spec:
       spec:
         pipelineRef:
           name: sample-pipeline
+        params:
+          - name: echo1
+            value: $(params.echo1)
+          - name: echo2
+            value: $(params.echo2)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding

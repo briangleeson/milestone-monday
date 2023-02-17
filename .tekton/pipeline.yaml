@@ -3,7 +3,17 @@ kind: Pipeline
 metadata:
   name: sample-pipeline
 spec:
+  params:
+    - name: echo1
+      description: echo property 1
+    - name: echo2
+      description: echo property 2
   tasks:
     - name: task1
       taskRef:
         name: task1
+      params:
+        - name: echo1
+          value: $(params.echo1)
+        - name: echo2
+          value: $(params.echo2)
